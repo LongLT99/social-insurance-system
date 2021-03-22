@@ -133,7 +133,7 @@ if (username != null || password != null) {
             <input type="password" name="password"  id="password">
             <input type="submit" name="" value="Login">
             <a href="#">Quên mật khẩu ?</a><br>
-            <a href="#">Bạn chưa có tài khoản?</a>
+            <a href="gdDangky.jsp">Bạn chưa có tài khoản?</a>
         </form>
         
     </div>

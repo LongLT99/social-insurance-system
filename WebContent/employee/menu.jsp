@@ -6,7 +6,7 @@
 		<nav class="ts-sidebar">
 		<ul class="ts-sidebar-menu">
 
-			<li class="ts-label">Main</li>
+			<li class="ts-label">Admin</li>
 			<li><a href="employeeHome.jsp"><i class="fas fa-user"></i>
 					&nbsp;Home</a></li>
 			<li><a href="searchBusiness.jsp"><i class="fas fa-envelope"></i>

@@ -31,29 +31,24 @@
 	}
 	%>
 
-	<nav
-		class="navbar navbar-expand-sm navbar-light bg-primary sticky-top ">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html"> <img
-				src="https://dichvucong.baohiemxahoi.gov.vn/assets/images/logo_text.svg">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-		<div class="collapse navbar-collapse" id="navbarResponsive">
-			<ul class="navbar-nav ml-auto">
-
-			</ul>
-		</div>
+	
+	<!-- Menu bar -->
+	<nav class="navbar navbar-expand-lg navbar-primary bg-primary sticky-top">
+	
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="businessHome.jsp">Trang chủ <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Khai báo thông tin</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="insuranceInfo.jsp">Xem thông tin bảo hiểm</a>
+	      </li>
+	    </ul>
+	  </div>
 	</nav>
-	<div class="carousel-caption">
-		<a href="gdDangky.jsp" type="button" class="btn btn-lg btn-primary">Đăng ký BHXH</a> 
-		<a href="" type="button" class="btn btn-lg btn-primary">Khai báo thông tin </a> 
-		<a href="insuranceInfo.jsp" type="button" class="btn btn-lg btn-primary">Tính bảo hiểm</a> 
-		<a href="" type="button" class="btn btn-lg btn-primary">Đóng bảo hiểm</a>
-	</div>
 
 	<div id="slides" class="carousel slide" data-ride="carousel">
 		<ul class="carousel-indicators">
@@ -83,31 +78,31 @@
 					<p class="lead">Hệ thống hỗ trợ tính phí bảo hiểm xã hội</p>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 ">
-					<a href="#">
-						<button type="button" class="btn btn-outline-primary btn-lg">
-							Group DT9</button>
-					</a>
+					
 				</div>
 			</div>
 		</div>
 		<hr>
-		<div id="connect">
-			<div class="container-fluid padding">
-				<div class="row text-center padding">
-					<div class="col-12">
-						<h2>Kết Nối</h2>
-					</div>
-					<div class="col-12 social padding">
-						<a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i
-							class="fab fa-twitter"></i></a> <a href="#"><i
-							class="fab fa-google-plus-g"></i></a> <a href="#"><i
-							class="fab fa-instagram"></i></a>
+		
+		<!-- Footer -->
+		<footer>
+		
+			<div id="connect">
+				<div class="container-fluid padding">
+					<div class="row text-center padding">
+						<div class="col-12">
+							<h2>Kết Nối</h2>
+						</div>
+						<div class="col-12 social padding">
+							<a href="#"><i class="fab fa-facebook"></i></a> <a href="#"><i
+								class="fab fa-twitter"></i></a> <a href="#"><i
+								class="fab fa-google-plus-g"></i></a> <a href="#"><i
+								class="fab fa-instagram"></i></a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Footer -->
-		<footer>
+			
 			<div class="container-fluid padding">
 				<div class="row text-center">
 
