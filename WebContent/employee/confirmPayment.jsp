@@ -26,6 +26,7 @@
 
 
 <body>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<%@include file="menu.jsp"%>
 	<%
 		request.setCharacterEncoding("utf-8");
@@ -50,7 +51,7 @@
 		BusinessInsuranceInfoDAO dao = new BusinessInsuranceInfoDAO();
 		BusinessInsuranceInfo insuranceInfo = dao.getInsuranceInfo(busUnit, request.getParameter("insuranceMonth"));
 		float[] InsuranceList = {insuranceInfo.getEmployeeSocialInsurance() + insuranceInfo.getBusinessSocialInsurance(),insuranceInfo.getEmployeeMedicalInsurance() + insuranceInfo.getBusinessMedicalInsurance(),
-				insuranceInfo.getEmployeeUnemployedInsurance() + insuranceInfo.getBusinessUnemployedInsurance()};
+				insuranceInfo.getEmployeeUnemployedInsurance() + insuranceInfo.getBusinessUnemployedInsurance(), insuranceInfo.getEmployeeUnionFee() + insuranceInfo.getBusinessUnionFee()};
 		session.setAttribute("money", InsuranceList[idIT-1]);
 		
 	%>
@@ -87,7 +88,7 @@
 	  <div class="form-row">
 	    <div class="form-group col-md-6">
 	      <label for="inputCity">Số tiền</label>
-	      <input type="text" class="form-control" id="inputMoney" placeholder="VNĐ" name="Money" value=<%= InsuranceList[idIT-1]%> readonly>
+	      <input type="text" class="form-control" id="inputMoney" placeholder="VNĐ" name="Money" value=<fmt:formatNumber type = "number" value = "<%= InsuranceList[idIT-1]%>" /> readonly>
 	    </div>
 	    <div class="form-group col-md-4">
 	      <label >Phương thức thanh toán</label>

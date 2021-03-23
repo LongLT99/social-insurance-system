@@ -8,6 +8,7 @@ public class Labour {
 	private int gender;
 	/*Đánh dấu người lao động có tham gia công đoàn không, 1 là có, 0 là không*/
 	private int isUnion;
+	private int isWorking;
 	
 	private Date dateOfBirth;
 	
@@ -21,17 +22,10 @@ public class Labour {
 	private String ethnic;
 	private String nationality;
 	private String position;
+	private String division;
 	private String familyCode;
 	
-	private Float insuranceSalary;
-	
-	private Float socialInsurance;
-	private Float medicalInsurance;
-	private Float unemployedInsurance;
-	
-	private Float businessSocialInsurance;
-	private Float businessMedicalInsurance;
-	private Float businessUnemployedInsurance;
+	private BusinessUnit businessUnit;
 	
 	public int getId() {
 		return id;
@@ -48,6 +42,12 @@ public class Labour {
 	public int getIsUnion() {
 		return isUnion;
 	}
+	public int getIsWorking() {
+		return isWorking;
+	}
+	public void setIsWorking(int isWorking) {
+		this.isWorking = isWorking;
+	}
 	public void setIsUnion(int isUnion) {
 		this.isUnion = isUnion;
 	}
@@ -56,27 +56,6 @@ public class Labour {
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}
-	public void setInsuranceSalary(Float insuranceSalary) {
-		this.insuranceSalary = insuranceSalary;
-	}
-	public void setSocialInsurance(Float socialInsurance) {
-		this.socialInsurance = socialInsurance;
-	}
-	public void setMedicalInsurance(Float medicalInsurance) {
-		this.medicalInsurance = medicalInsurance;
-	}
-	public void setUnemployedInsurance(Float unemployedInsurance) {
-		this.unemployedInsurance = unemployedInsurance;
-	}
-	public void setBusinessSocialInsurance(Float businessSocialInsurance) {
-		this.businessSocialInsurance = businessSocialInsurance;
-	}
-	public void setBusinessMedicalInsurance(Float businessMedicalInsurance) {
-		this.businessMedicalInsurance = businessMedicalInsurance;
-	}
-	public void setBusinessUnemployedInsurance(Float businessUnemployedInsurance) {
-		this.businessUnemployedInsurance = businessUnemployedInsurance;
 	}
 	public String getTaxCode() {
 		return taxCode;
@@ -144,47 +123,17 @@ public class Labour {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	public Float getInsuranceSalary() {
-		return insuranceSalary;
+	public String getDivision() {
+		return division;
 	}
-	public void setInsuranceSalary(float insuranceSalary) {
-		this.insuranceSalary = insuranceSalary;
+	public void setDivision(String division) {
+		this.division = division;
 	}
-	public Float getSocialInsurance() {
-		return socialInsurance;
+	public BusinessUnit getBusinessUnit() {
+		return businessUnit;
 	}
-	public void setSocialInsurance(float socialInsurance) {
-		this.socialInsurance = socialInsurance;
-	}
-	public Float getMedicalInsurance() {
-		return medicalInsurance;
-	}
-	public void setMedicalInsurance(float medicalInsurance) {
-		this.medicalInsurance = medicalInsurance;
-	}
-	public Float getUnemployedInsurance() {
-		return unemployedInsurance;
-	}
-	public void setUnemployedInsurance(float unemployedInsurance) {
-		this.unemployedInsurance = unemployedInsurance;
-	}
-	public Float getBusinessSocialInsurance() {
-		return businessSocialInsurance;
-	}
-	public void setBusinessSocialInsurance(float businessSocialInsurance) {
-		this.businessSocialInsurance = businessSocialInsurance;
-	}
-	public Float getBusinessMedicalInsurance() {
-		return businessMedicalInsurance;
-	}
-	public void setBusinessMedicalInsurance(float businessMedicalInsurance) {
-		this.businessMedicalInsurance = businessMedicalInsurance;
-	}
-	public Float getBusinessUnemployedInsurance() {
-		return businessUnemployedInsurance;
-	}
-	public void setBusinessUnemployedInsurance(float businessUnemployedInsurance) {
-		this.businessUnemployedInsurance = businessUnemployedInsurance;
+	public void setBusinessUnit(BusinessUnit businessUnit) {
+		this.businessUnit = businessUnit;
 	}
 	
 }

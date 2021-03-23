@@ -28,7 +28,6 @@ public class InsuranceTypeDAO extends DAO{
 				result.add(insuranceType);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;

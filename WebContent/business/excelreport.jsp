@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.List" %>
-<%@ page import="src.model.Labour" %>
+<%@ page import="src.model.LabourInsuranceInfo" %>
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,40 +27,44 @@
 						lương</th>
 				</tr>
 				<tr>
-					<th>KPCĐ</th>
 					<th>BHXH</th>
 					<th>BHYT</th>
 					<th>BHTN</th>
+					<th>KPCĐ</th>
 					<th>Cộng</th>
-					<th>KPCĐ</th>
 					<th>BHXH</th>
 					<th>BHYT</th>
 					<th>BHTN</th>
+					<th>KPCĐ</th>
 					<th>Cộng</th>
 				</tr>
          <%
-            List<Labour> labours  = (List<Labour>)session.getAttribute("employees");
+            List<LabourInsuranceInfo> labours  = (List<LabourInsuranceInfo>)session.getAttribute("employees");
                   if (labours != null) {
                       response.setContentType("application/vnd.ms-excel");
                       response.setHeader("Content-Disposition", "inline; filename="+ "labour_report.xls");
                   }
-            for(Labour labour : labours){
+            for(LabourInsuranceInfo labour : labours){
             %>
          <tr>
 					<td><%=labour.getInsuranceCode() %></td>
 					<td><%=labour.getName() %></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getInsuranceSalary() %>" /></td>
 					<td>Để lại</td>
-					<td>Để lại</td>
-					<td><%=labour.getBusinessSocialInsurance() %></td>
-					<td><%=labour.getBusinessMedicalInsurance() %></td>
-					<td><%=labour.getBusinessUnemployedInsurance() %></td>
-					<td>Để lại</td>
-					<td>Để lại</td>
-					<td><%=labour.getSocialInsurance() %></td>
-					<td><%=labour.getMedicalInsurance() %></td>
-					<td><%=labour.getUnemployedInsurance() %></td>
-					<td>Để lại</td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessSocialInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessMedicalInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnemployedInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnionFee() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnemployedInsurance() +
+							labour.getBusinessMedicalInsurance() + labour.getBusinessSocialInsurance() +
+							labour.getBusinessUnionFee()%>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getSocialInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getMedicalInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnemployedInsurance() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnionFee() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnemployedInsurance() +
+							labour.getMedicalInsurance() + labour.getSocialInsurance() +
+							labour.getUnionFee()%>" /></td>
 				</tr>
          <% 
             }

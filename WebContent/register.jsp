@@ -4,7 +4,9 @@
     Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +15,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+	<script
+			src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js' />
 	<style type="text/css">
 		.form-group{
 			margin-left: 50px;
 		}
 		label{
 			margin-right: 50px;
+                        margin-top: 20px;
 		}
 		.form-group input{
 			border: none;
@@ -28,6 +32,13 @@
 		}
 
 	</style>
+	<script type="text/javascript">
+		function send(){
+			let username = document.getElementById('username').value;
+			console.log(username);
+		}
+	</script>
+
 </head>
 <body>
 		<nav class="navbar navbar-expand-sm navbar-light bg-primary sticky-top ">
@@ -44,6 +55,14 @@
 	
 		</div>
 	</nav>
+	<%
+		CoquanbhDAO cdao = new CoquanbhDAO();
+			ArrayList<InsuranceCompany> ListCoQuan = cdao.getCoquanbh();
+			TinhDAO tdao = new TinhDAO();
+			ArrayList<Province> ListTinh = tdao.getTinh();
+			ArrayList<District> ListQuan = (ArrayList<District>) session.getAttribute("quan");
+			ArrayList<Ward> ListPhuong = (ArrayList<Ward>) session.getAttribute("phuong");
+	%>
 
 	<main class="container">
 		<header class="row">
@@ -58,98 +77,162 @@
 		<div class="col-7">
 			<div class="row">
 				<div class="col">
-					<form action="RegisterControl" method="post">
+					<form action="doRegister.jsp" method="post">
                                         <div class="form-group form-inline " >
-						<label for="name" class="col-3">Username</label>
-						<input type="text" name="username" id="username" class="form-control col-6" >
+						<label for="username" class="col-3">Username</label>
+						<input type="text" name="username" id="username" class="form-control col-6" required>
 					</div>
                                         <div class="form-group form-inline " >
-						<label for="name" class="col-3">Password</label>
-						<input type="password" name="username" id="username" class="form-control col-6" >
+						<label for="password" class="col-3">Password</label>
+						<input type="password" name="password" id="password" class="form-control col-6" minlength="8" maxlength="12" required >
 					</div>
+                                        <div class="form-group form-inline " >
+						<label for="madonvi" class="col-3">Mã đơn vị</label>
+						<input type="text" name="madonvi" id="madonvi" class="form-control col-6" required>
+					</div>
+                                            
+                                            
 					<div class="form-group form-inline " >
-						<label for="name" class="col-3">Họ và tên</label>
-						<input type="text" name="name" id="name" class="form-control col-6" >
-					</div>
-					<div class="form-group form-inline ">
-						<label for="dob" class="col-3">Ngày sinh</label>
-						<input type="text" name="dob" id="dob" class="form-control col-6" placeholder="yyyy-mm-dd">
-					</div>
-
-					<div class="form-group">
-						<label for="genderM" class="col-3" style="margin-left: 46px">Giới tính</label>
-						 <div class="form-check form-check-inline ">
-						 	<input type="radio" name="gender" class="form-check-input" id="genderM">
-						 	<label for="genderM">Nam</label>
-						 </div>
-
-						 <div class="form-check form-check-inline ">
-						 	<input type="radio" name="gender" class="form-check-input" id="genderF">
-						 	<label for="genderF">Nữ</label>
-						 </div>					
-					</div>
-
-<!-- 					<div class="form-group form-inline">
-						<label for="address">Địa chỉ</label>
-						<select name="tinh" >
-							<option >
-								Ninh Binh
-							</option>
-						</select>
-						<select name="huyen">
-							<option>
-								Ninh Binh
-							</option>
-						</select>
-						<select name="phuong">
-							<option>
-								Ninh Binh
-							</option>
-						</select>
-					</div> -->
-
-					<div class="form-group form-inline">
-						<label for="nationality" class="col-3">Quốc tịch</label>
-						<input type="text" name="nationality" id="nationality" class="form-control col-6">
-					</div>
+						<label for="ten" class="col-3">Tên cơ quan/Tổ chức</label>
+						<input type="text" name="ten" id="ten" class="form-control col-6" required>
+					</div>		
 					
 						<div class="form-group form-inline">
-						<label for="folk" class="col-3">Dân tộc</label>
-						<input type="text" name="folk" id="folk" class="form-control col-6">
+						<label for="masothue" class="col-3">Mã số thuế</label>
+						<input type="text" name="masothue" id="masothue" class="form-control col-6" required>
 					</div>
-						<div class="form-group form-inline">
-						<label for="sicode" class="col-3">Mã số BHXH</label>
-						<input type="text" name="sicode" id="sicode" class="form-control col-6">
+						
+					<div class="form-group form-inline">
+						<label for="tencqbh" class="col-3">Cơ quan bảo hiểm</label>
+					<select class="form-control col-6" name="tencqbh" id ="tencqbh" style="margin-top: 20px;">
+                                             <% for(int i=0; i<ListCoQuan.size();i++){%>
+							                        <option value="<%=ListCoQuan.get(i).getId()%>"><%=ListCoQuan.get(i).getName() %></option>
+							                    <%}
+							                    %>
+                                        </select> 
+						
 					</div>
-						<div class="form-group form-inline">
-						<label for="phone" class="col-3">Số điện thoại</label>
-						<input type="text" name="phone" id="phone" class="form-control col-6">
-					</div>
-						<div class="form-group form-inline">
-						<label for="idcode" class="col-3">Số CMND</label>
-						<input type="text" name="idcode" id="idcode" class="form-control col-6">
-					</div>
-						<div class="form-group form-inline">
-						<label for="fmcode" class="col-3">Mã hộ gia đình</label>
-						<input type="text" name="fmcode" id="fmcode" class="form-control col-6">
-					</div>
+                                            
+                                        
+			
 
+						<div class="form-group form-inline">
+						<label for="sdt" class="col-3">Số điện thoại</label>
+						<input type="text" name="sdt" id="sdt" class="form-control col-6" required>
+					</div>
+						
+						<div class="form-group form-inline">
+						<label for="email" class="col-3">Email</label>
+						<input type="email" name="email" id="email" class="form-control col-6" required>
+					</div>
+                                        <div class="form-group form-inline">
+						<label for="diachi" class="col-3">Địa chỉ</label>
+						<div class="col-6 form-inline">
+                                                    <select class="form-control" name="tinh" id="tinh" style="width:290px;" >
+                                                    <option selected>Tỉnh/TP</option>
+                                                    <% for(int i=0; i<ListTinh.size();i++){%>
+							                        <option value="<%=ListTinh.get(i).getId()%>"><%=ListTinh.get(i).getName() %></option>
+								                    <%}
+								                    %>
+                                                  </select>
+                                                    
+                                                    <select class="form-control" name="quan" id="quan" style="width:290px; margin-top: 5px;">
+                                            		<option selected>Quận</option>
+	                                            <% 
+	                                            if(ListQuan != null && ListQuan.size() > 0)
+	                                            for(int i=0; i<ListQuan.size();i++){%>
+							                        <option value="<%=ListQuan.get(i).getId()%>"><%=ListQuan.get(i).getName() %></option>
+								                    <%}
+								                    %>
+                                        </select> 
+                                        <input class="billing_address_1" name="" type="hidden" value="">
+										<input class="billing_address_2" name="" type="hidden" value="">
+                                                    <select class="form-control" name="phuong" style="width:290px; margin-top: 5px;">
+                                            <option selected>Phường</option>
+                                            <% if(ListPhuong != null && ListPhuong.size() > 0)
+                                            for(int i=0; i<ListPhuong.size();i++){%>
+							                        <option value="<%=ListPhuong.get(i).getId()%>"><%=ListPhuong.get(i).getName() %></option>
+								                    <%}
+								                    %>
+                                        </select> 
+                                        <input type="text" name="chitiet" id="chitiet" class="form-control col-6" required placeholder="Chi tiết địa chỉ">
+                                                    
+                                                    
+						</div>
+					</div>
 					<hr>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary" style="float: right; margin-right: 150px;">
-						Đăng ký
-					</button>
+						<input type="submit" onclick="send()" class="btn btn-primary" value="Đăng ký" style="float: right; margin-right: 150px;" >
+					
 					</div>
 				</form>
 				</div>				
 			</div>
 		</div>
 		<div class="col-5">
-			<h3>Thông tin đăng ký</h3>
+                    <img src="https://vnn-imgs-f.vgcloud.vn/2020/02/24/10/bao-hiem-3.png"/>
 		</div>
 	</section>
-	
 
+<script type="text/javascript">
+	var isLoading = false;
+	$(document).ready(function($) {
+		$("#tinh").change(function(event) {
+			provinceId = $("#tinh").val();
+			$.post("doQuan.jsp?tinh="+provinceId, {"tinh" : provinceId}, function(data) {
+				isLoading = true;
+				location.reload();
+			});
+		});
+		$("#quan").change(function(event) {
+			provinceId = $("#quan").val();
+			$.post("doPhuong.jsp?quan="+provinceId, {"quan" : provinceId}, function(data) {
+				isLoading = true;
+				location.reload();
+			});
+		});
+	});
+	window.onbeforeunload = function() {
+		   if(isLoading) {
+			   localStorage.setItem("tinh", document.getElementById("tinh").value);
+			   localStorage.setItem("quan", document.getElementById("quan").value);
+			   localStorage.setItem("madonvi", document.getElementById("madonvi").value);
+			   localStorage.setItem("ten", document.getElementById("ten").value);
+			   localStorage.setItem("masothue", document.getElementById("masothue").value);
+			   localStorage.setItem("sdt", document.getElementById("sdt").value);
+			   localStorage.setItem("tencqbh", document.getElementById("tencqbh").value);
+			   localStorage.setItem("email", document.getElementById("email").value);
+			   localStorage.setItem("username", document.getElementById("username").value);
+			   localStorage.setItem("password", document.getElementById("password").value);
+		   }
+		}
+
+	window.onload = function() {
+	   var username = localStorage.getItem("username");
+	   var password = localStorage.getItem("password");
+	   var tinh = localStorage.getItem("tinh");
+	   var quan = localStorage.getItem("quan");
+	   var madonvi = localStorage.getItem("madonvi");
+	   var ten = localStorage.getItem("ten");
+	   var masothue = localStorage.getItem("masothue");
+	   var sdt = localStorage.getItem("sdt");
+	   var tencqbh = localStorage.getItem("tencqbh");
+	   var email = localStorage.getItem("email");
+	   localStorage.clear();
+	   document.getElementById("username").value = username;
+	   document.getElementById("password").value = password;
+	   document.getElementById("madonvi").value = madonvi;
+	   document.getElementById("masothue").value = masothue;
+	   document.getElementById("tencqbh").value = tencqbh;
+	   document.getElementById("email").value = email;
+	   document.getElementById("sdt").value = sdt;
+	   document.getElementById("ten").value = ten;
+	   document.getElementById("tinh").value = tinh;
+	   document.getElementById("quan").value = quan;
+	}
+	</script>
+	
+	<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

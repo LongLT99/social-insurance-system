@@ -7,6 +7,7 @@
 <%@page import="src.model.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"
 import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +31,9 @@ import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
 <body>
 	<%
 		Member kh = (Member) session.getAttribute("business");
-	if (kh == null) {
-		response.sendRedirect("../login.jsp?err=timeout");
-	}
+		if (kh == null) {
+			request.getRequestDispatcher("../login.jsp?err=timeout");
+		}
 	%>
 
 	
@@ -45,7 +46,7 @@ import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
 	        <a class="nav-link" href="businessHome.jsp">Trang chủ <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Khai báo thông tin</a>
+	        <a class="nav-link" href="labourInfo.jsp">Khai báo thông tin</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="insuranceInfo.jsp">Xem thông tin bảo hiểm</a>
@@ -110,25 +111,32 @@ import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
 		%>
 			
 			<tr>
-				<th scope="row"><%=insuranceInfo.getEmployeeSocialInsurance() + insuranceInfo.getBusinessSocialInsurance() %></th>
-				<th><%=insuranceInfo.getEmployeeMedicalInsurance() + insuranceInfo.getBusinessMedicalInsurance() %></th>
-				<th><%=insuranceInfo.getEmployeeUnemployedInsurance() + insuranceInfo.getBusinessUnemployedInsurance() %></th>
-				<th>Tổng phí công đoàn</th>
+				<th scope="row"><fmt:formatNumber type = "number" 
+				value = "<%=insuranceInfo.getEmployeeSocialInsurance() + 
+					insuranceInfo.getBusinessSocialInsurance() %>" /></th>
+				<th><fmt:formatNumber type = "number" 
+				value = "<%=insuranceInfo.getEmployeeMedicalInsurance() + 
+					insuranceInfo.getBusinessMedicalInsurance() %>" /></th>
+				<th><fmt:formatNumber type = "number" 
+				value = "<%=insuranceInfo.getEmployeeUnemployedInsurance() + 
+					insuranceInfo.getBusinessUnemployedInsurance() %>" /></th>
+				<th><fmt:formatNumber type = "number" 
+				value = "<%=insuranceInfo.getEmployeeUnionFee() + 
+					insuranceInfo.getBusinessUnionFee() %>" /></th>
 			</tr>
 	  </tbody>
 	  <a href="labourDetail.jsp?businessId=<%=businessUnit.getId()%>&insuranceMonth=<%=request.getParameter("insuranceMonth")%>">
 		Xem chi tiết người lao động</a>
-
+		</table>
+	</div>
+	
+	</div>
 	<%
 		}
 	} else {
 		response.sendRedirect("../login.jsp");
 	}
 	%>
-	</div>
-	
-	</div>
-
 
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -21,12 +21,15 @@ public class BusinessInsuranceInfoDAO extends DAO {
 				" 	SUM(CASE WHEN lbh.id = 2 AND bt_yt.donvibhid = dvbh.id THEN bt.luongBH * (ptbh.tyledndong) END) AS bhyt_doanh_nghiep_dong,\r\n" + 
 				" 	SUM(CASE WHEN lbh.id = 2 AND bt_yt.donvibhid = dvbh.id THEN bt_yt.luongBH * (ptbh.tylenlddong) END) AS bhyt_nguoi_lao_dong_dong,\r\n" + 
 				" 	SUM(CASE WHEN lbh.id = 3 THEN bt_yt.luongBH * (ptbh.tyledndong) END) AS bhtn_doanh_nghiep_dong,\r\n" + 
-				" 	SUM(CASE WHEN lbh.id = 3 THEN bt.luongBH * (ptbh.tylenlddong) END) AS bhtn_nguoi_lao_dong_dong\r\n" + 
+				" 	SUM(CASE WHEN lbh.id = 3 THEN bt.luongBH * (ptbh.tylenlddong) END) AS bhtn_nguoi_lao_dong_dong, \r\n"
+				+ "SUM(CASE WHEN lbh.id = 4 THEN bt.luongBH * (ptbh.tyledndong) else 0 END) AS kpcd_doanh_nghiep_dong,\r\n" + 
+				" 	SUM(CASE WHEN lbh.id = 4 THEN bt.luongBH * (ptbh.tylenlddong) ELSE 0 END) AS kpcd_nguoi_lao_dong_dong " + 
 				"FROM laodong ld\r\n" + 
 				"INNER JOIN baotangggiam bt ON bt.laodongid = ld.id AND bt.thogianbatdau IN (SELECT MIN(bt.thogianbatdau) FROM baotangggiam bt WHERE IFNULL(bt.thoigianketthuc, DATE(CONCAT(?, '-01'))) >= DATE(CONCAT(?, '-01')))\r\n" + 
 				"INNER JOIN loaitanggiam ltg ON ltg.id = bt.Loaitangid\r\n" + 
-				"INNER JOIN baotangggiam bt_yt ON bt_yt.laodongid = ld.id AND bt_yt.luongBH IN (SELECT MAX(bt_yt.luongBH) FROM baotangggiam bt_yt WHERE IFNULL(bt_yt.thoigianketthuc, DATE(CONCAT(?, '-01'))) >= DATE(CONCAT(?, '-01')))\r\n" + 
-				"INNER JOIN donvibh dvbh ON dvbh.id = bt.donvibhid\r\n" + 
+				"INNER JOIN (SELECT bt.*, ld.maBHXH, ld.DonviBHId FROM baotangggiam bt INNER JOIN laodong ld ON ld.id = bt.laodongid) bt_yt ON bt_yt.maBHXH = ld.maBHXH \r\n" + 
+				"	AND bt_yt.luongBH IN (SELECT MAX(bt_yt1.luongBH) FROM baotangggiam bt_yt1 WHERE DATE(CONCAT(?, '-01')) BETWEEN bt_yt1.thogianbatdau AND IFNULL(bt_yt1.thoigianketthuc, DATE(CONCAT(?, '-01'))) AND bt_yt1.laodongid = ld.id)\r\n" + 
+				"INNER JOIN donvibh dvbh ON dvbh.id = ld.donvibhid\r\n" + 
 				"INNER JOIN nguoidongbhxh ndbh ON ndbh.Laodongid = ld.id\r\n" + 
 				"INNER JOIN loaibaohiem lbh ON lbh.id = ndbh.Loaibaohiemid\r\n" + 
 				"INNER JOIN phantrambh ptbh ON ptbh.Loaibaohiemid = lbh.id\r\n" + 
@@ -63,6 +66,8 @@ public class BusinessInsuranceInfoDAO extends DAO {
 				insuranceInfo.setEmployeeMedicalInsurance(rs.getFloat("bhyt_nguoi_lao_dong_dong"));
 				insuranceInfo.setEmployeeSocialInsurance(rs.getFloat("bhxh_nguoi_lao_dong_dong"));
 				insuranceInfo.setEmployeeUnemployedInsurance(rs.getFloat("bhtn_nguoi_lao_dong_dong"));
+				insuranceInfo.setEmployeeUnionFee(rs.getFloat("kpcd_nguoi_lao_dong_dong"));
+				insuranceInfo.setBusinessUnionFee(rs.getFloat("kpcd_doanh_nghiep_dong"));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

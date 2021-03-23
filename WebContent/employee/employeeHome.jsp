@@ -17,6 +17,10 @@
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="../static/css/style.css">
 	<link rel="stylesheet" href="../static/css/style.less">
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 </head>
 <body>
 	<%
@@ -24,11 +28,24 @@
 	if (sv == null) {
 		response.sendRedirect("..\\login.jsp?err=timeout");
 	}
+	
 	%>
 	<%@include file="menu.jsp"%>
 	<div class="content-wrapper">
 		<div class="container-fluid">
 			<div class="row">
+			<%
+			if(request.getParameter("idok")!=null){
+				%>
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+					   Xác nhận thành công!
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+				<% 
+			}
+			%>
 				<div class="col-md-12">
 					<h2 class="page-title">Trang chủ</h2>
 				</div>

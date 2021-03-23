@@ -4,7 +4,7 @@
  
 <%
 	
-	request.setCharacterEncoding("utf-8");
+	request.setCharacterEncoding("UTF-8");
     String bank = (String)request.getParameter("BankName");
     String descrip = (String)request.getParameter("Description");
     String code = (String)request.getParameter("inputCode");
@@ -47,7 +47,7 @@
 	        alert("Đăng kí thành công!");
 	    </script>
 		<%
-        response.sendRedirect("searchBusiness.jsp?idalert=1");
+        response.sendRedirect("employeeHome.jsp?idok=1");
     }else{
     	%>
 	    <script type="text/javascript">

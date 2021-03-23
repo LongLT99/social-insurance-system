@@ -2,7 +2,7 @@
     <wb-module deploy-name="social-insurance-system">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/social-insurance-system/build/classes"/>
         <property name="context-root" value="social-insurance-system"/>
+        <property name="java-output-path" value="/social-insurance-system/build/classes"/>
     </wb-module>
 </project-modules>

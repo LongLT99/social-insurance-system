@@ -45,15 +45,15 @@
 						lương</th>
 				</tr>
 				<tr>
-					<th>KPCĐ</th>
 					<th>BHXH</th>
 					<th>BHYT</th>
 					<th>BHTN</th>
+					<th>KPCĐ</th>
 					<th>Cộng</th>
-					<th>KPCĐ</th>
 					<th>BHXH</th>
 					<th>BHYT</th>
 					<th>BHTN</th>
+					<th>KPCĐ</th>
 					<th>Cộng</th>
 				</tr>
 			</thead>
@@ -64,25 +64,29 @@
 					Integer businessId = busUnit.getId();
 					String insuranceMonth = request.getParameter("insuranceMonth");
 					LabourDAO dao = new LabourDAO();
-					ArrayList<Labour> insuranceInfo = dao.getInsuranceInfo(businessId, insuranceMonth);
+					ArrayList<LabourInsuranceInfo> insuranceInfo = dao.getInsuranceInfo(businessId, insuranceMonth);
 					session.setAttribute("employees", insuranceInfo);
-					for (Labour labour : insuranceInfo) {
+					for (LabourInsuranceInfo labour : insuranceInfo) {
 				%>
 				<tr>
 					<td><%=labour.getInsuranceCode() %></td>
 					<td><%=labour.getName() %></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getInsuranceSalary() %>" /></td>
 					<td>Để lại</td>
-					<td>Để lại</td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessSocialInsurance() %>" /></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessMedicalInsurance() %>" /></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnemployedInsurance() %>" /></td>
-					<td>Để lại</td>
-					<td>Để lại</td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnionFee() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getBusinessUnemployedInsurance() +
+							labour.getBusinessMedicalInsurance() + labour.getBusinessSocialInsurance() +
+							labour.getBusinessUnionFee()%>" /></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getSocialInsurance() %>" /></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getMedicalInsurance() %>" /></td>
 					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnemployedInsurance() %>" /></td>
-					<td>Để lại</td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnionFee() %>" /></td>
+					<td><fmt:formatNumber type = "number" value = "<%=labour.getUnemployedInsurance() +
+							labour.getMedicalInsurance() + labour.getSocialInsurance() +
+							labour.getUnionFee()%>" /></td>
 				</tr>
 				<%
 					}

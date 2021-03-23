@@ -54,7 +54,6 @@ public class BusinessUnitDAO extends DAO {
 	public ArrayList<BusinessUnit> searchBusinessUnit(String BusName) {
 		ArrayList<BusinessUnit> result = new ArrayList<BusinessUnit>();
 		String sql = "SELECT * FROM social_insurance.donvibh where ten like Concat('%',?,'%')";
-		System.out.println(BusName);
 		try {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1, BusName);
@@ -73,4 +72,22 @@ public class BusinessUnitDAO extends DAO {
 		}
 		return result;
 	}
+	
+	
+	public void luudonvibh(String madonvi , String ten , String masothue,int CoquanBHid, int idTV){
+        String query = "INSERT INTO `social_insurance`.`donvibh` (`madonvi`, `ten`, `masothue`, `thanhvienid`, `diachiid`, `CoquanBHid`) VALUES (?,?,?,?, '1',?);";
+        PreparedStatement ps = null;
+        try {
+            ps = (PreparedStatement) conn.prepareStatement(query);
+    
+            ps.setString(1,madonvi);
+            ps.setString(2,ten);
+            ps.setString(3,masothue);
+            ps.setInt(4,idTV);
+            ps.setInt(5,CoquanBHid);
+            ps.executeUpdate();
+             
+        } catch (Exception e) {
+        }
+    }
 }

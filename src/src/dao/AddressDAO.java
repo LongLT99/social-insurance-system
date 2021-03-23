@@ -1,10 +1,9 @@
 package src.dao;
- 
-import static src.dao.DAO.conn;
-import java.sql.CallableStatement;
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import src.model.Address;
+
+import src.dao.DAO;
+
 public class AddressDAO extends DAO {
      public AddressDAO() {
         super();
@@ -15,7 +14,7 @@ public class AddressDAO extends DAO {
         String query = "INSERT INTO `social_insurance`.`diachi` (`chitiet`, `phuongid`) VALUES (?,?);";
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(query);
+            ps = (PreparedStatement) conn.prepareStatement(query);
             ps.setString(1,chitiet);
             ps.setInt(2,phuongid);
             ps.executeUpdate();

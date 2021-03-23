@@ -92,6 +92,10 @@ h1 {
 	color: #ffc107;
 }
 </style>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 </head>
 <%
 	String username = (String) request.getParameter("username");
@@ -123,6 +127,18 @@ if (username != null || password != null) {
           %> <h4 color="red">Sai tên đăng nhập/mật khẩu!</h4><%
       }
       %>
+      <%
+			if(request.getParameter("idok")!=null){
+				%>
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+					   Xác nhận thành công!
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+				<% 
+			}
+			%>
 	<div class="loginbox">
     <img src="https://img.icons8.com/clouds/2x/login-rounded-right.png" class="avatar">
         <h1>Đăng nhập</h1>
@@ -133,7 +149,7 @@ if (username != null || password != null) {
             <input type="password" name="password"  id="password">
             <input type="submit" name="" value="Login">
             <a href="#">Quên mật khẩu ?</a><br>
-            <a href="gdDangky.jsp">Bạn chưa có tài khoản?</a>
+            <a href="register.jsp">Bạn chưa có tài khoản?</a>
         </form>
         
     </div>

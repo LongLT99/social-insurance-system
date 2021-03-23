@@ -37,5 +37,38 @@ public class MemberDAO extends DAO {
 		return result;
 	}
 	
+	public void luuthanhvien(String username , String password ,String email ,String sdt){
+
+        String query = "INSERT INTO `social_insurance`.`thanhvien` (`username`, `password`, `email`, `sdt`, `role`) VALUES (?,?,?,?,'business');";
+        PreparedStatement ps = null;
+        try {
+            ps = (PreparedStatement) conn.prepareStatement(query);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            ps.setString(3,email);
+            ps.setString(4,sdt);
+            ps.executeUpdate();
+             
+        } catch (Exception e) {
+        }
+    }
 	
+	public int getIdThanhVien(String username , String password) {
+		String sql = "SELECT * FROM Thanhvien WHERE USERNAME = ? AND PASSWORD = ?";
+		int i=0;
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				i= rs.getInt("id");
+			}
+			
+			}catch(Exception e) {
+				return i;
+			}
+		return i;
+}
 }

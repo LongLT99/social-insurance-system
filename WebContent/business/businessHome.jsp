@@ -1,9 +1,3 @@
-<%-- 
-    Document   : gdChinhKH
-    Created on : Mar 15, 2021, 8:40:10 PM
-    Author     : Admin
---%>
-
 <%@page import="src.model.Member"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +35,7 @@
 	        <a class="nav-link" href="businessHome.jsp">Trang chủ <span class="sr-only">(current)</span></a>
 	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">Khai báo thông tin</a>
+	        <a class="nav-link" href="labourInfo.jsp">Khai báo thông tin</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="insuranceInfo.jsp">Xem thông tin bảo hiểm</a>

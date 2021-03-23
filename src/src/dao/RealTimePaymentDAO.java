@@ -15,8 +15,7 @@ public class RealTimePaymentDAO extends DAO{
 	}
 	
 	//confirm payment
-	//	Hàm nhập các thông tin đóng bào hiểm 
-	//	kết quả tạo ra bản ghi mới
+
 	public boolean ConfirmPayment(RealTimePayment rtPay, String realtime, String insuranceMonth) {
 		boolean result = false;
 		String sql = "INSERT INTO thoigiandongthucte (thoigiandong, phuongthuc, sotien, tennganhang, magiaodich, noidunggd, Nhanvienid, Loaibaohiemid, DonViBHId, handong ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";

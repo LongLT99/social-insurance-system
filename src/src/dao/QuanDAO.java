@@ -6,8 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import src.model.District;
-public class DistrictDAO extends DAO{
-    public DistrictDAO(){
+import src.model.Province;
+public class QuanDAO extends DAO{
+    public QuanDAO(){
         super();
     }
     
@@ -16,6 +17,30 @@ public class DistrictDAO extends DAO{
         String sql = "SELECT * FROM social_insurance.quan";
         try{
             CallableStatement cs = conn.prepareCall(sql);
+            ResultSet rs = cs.executeQuery();
+             
+            while(rs.next()){
+                if(kq == null) kq = new ArrayList<District>();
+                District p = new District();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("ten"));
+             
+               
+                kq.add(p);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            kq = null;
+        }   
+        return kq;
+    }
+    
+    public ArrayList<District> getQuanByTinh(int provinceId){
+        ArrayList<District> kq=null;
+        String sql = "SELECT * FROM social_insurance.quan where tinhid = ?";
+        try{
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setInt(1, provinceId);
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){

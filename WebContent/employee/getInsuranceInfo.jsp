@@ -22,6 +22,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<%@include file="menu.jsp"%>
 	<%
 	request.setCharacterEncoding("utf-8");
@@ -83,7 +84,7 @@
 			
 			BusinessInsuranceInfo insuranceInfo = dao.getInsuranceInfo(businessUnit, request.getParameter("insuranceMonth"));
 			float[] InsuranceList = {insuranceInfo.getEmployeeSocialInsurance() + insuranceInfo.getBusinessSocialInsurance(),insuranceInfo.getEmployeeMedicalInsurance() + insuranceInfo.getBusinessMedicalInsurance(),
-					insuranceInfo.getEmployeeUnemployedInsurance() + insuranceInfo.getBusinessUnemployedInsurance()};
+					insuranceInfo.getEmployeeUnemployedInsurance() + insuranceInfo.getBusinessUnemployedInsurance(), insuranceInfo.getEmployeeUnionFee() + insuranceInfo.getBusinessUnionFee()};
 			
 			RealTimePaymentDAO rtdao = new RealTimePaymentDAO();
 			
@@ -99,7 +100,7 @@
 				%>
 				<tr>
 					<th scope="row"><%=InsuranceTypeList.get(i).getName() %></th>
-					<th><%= InsuranceList[i]%></th>
+					<th><fmt:formatNumber type = "number" value = "<%= InsuranceList[i]%>" /></th>
 					
 				<%
 					boolean check = rtdao.CheckPayment(idBU, request.getParameter("insuranceMonth"),InsuranceTypeList.get(i).getId());
