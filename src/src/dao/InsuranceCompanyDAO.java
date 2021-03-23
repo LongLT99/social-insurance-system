@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import src.dao.DAO;
 import src.model.InsuranceCompany;
-public class CoquanbhDAO extends DAO{
-    public CoquanbhDAO(){
+public class InsuranceCompanyDAO extends DAO{
+    public InsuranceCompanyDAO(){
         super();
     }
     

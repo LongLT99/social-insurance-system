@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import src.model.Province;
 
-public class TinhDAO  extends DAO{
+public class ProvinceDAO  extends DAO{
 
-    public TinhDAO() {
+    public ProvinceDAO() {
         super();
     }
     public ArrayList<Province> getTinh(){

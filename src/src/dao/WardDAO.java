@@ -5,22 +5,22 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import src.model.District;
-public class QuanDAO extends DAO{
-    public QuanDAO(){
+import src.model.Ward;
+public class WardDAO extends DAO{
+    public WardDAO(){
         super();
     }
     
-    public ArrayList<District> getQuan(){
-        ArrayList<District> kq=null;
-        String sql = "SELECT * FROM social_insurance.quan";
+    public ArrayList<Ward> getPhuong(){
+        ArrayList<Ward> kq=null;
+        String sql = "SELECT * FROM social_insurance.phuong";
         try{
             CallableStatement cs = conn.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
              
             while(rs.next()){
-                if(kq == null) kq = new ArrayList<District>();
-                District p = new District();
+                if(kq == null) kq = new ArrayList<Ward>();
+                Ward p = new Ward();
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("ten"));
              
