@@ -43,7 +43,7 @@
 	<form class="form-inline" method="post" action="searchBusiness.jsp">
 		<label>Tên doanh nghiệp:</label>
 	  <div class="form-group col-md-2"">	    
-	    <input type="text" class="form-control" name="busName" placeholder="Nhập tên doanh nghiệp cần tìm">
+	    <input type="text" class="form-control" name="busName" placeholder="Nhập tên doanh nghiệp">
 	  </div>
 	  <button type="submit" class="btn btn-secondary">Tìm kiếm</button>
 	</form>

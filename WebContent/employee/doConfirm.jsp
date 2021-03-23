@@ -3,6 +3,7 @@
     pageEncoding="UTF-8" import="java.util.*,src.dao.*,src.model.*,java.sql.*"%>
  
 <%
+	
 	request.setCharacterEncoding("utf-8");
     String bank = (String)request.getParameter("BankName");
     String descrip = (String)request.getParameter("Description");
@@ -16,6 +17,8 @@
     nhanvienid = (int) member.getId();
     BusinessUnit busUnit = (BusinessUnit) session.getAttribute("busUnit");
     iddonvi = (int)busUnit.getId();
+    
+   
     		
     RealTimePayment rtPay = new RealTimePayment();
     rtPay.setTennganhang(bank);
@@ -28,7 +31,11 @@
     rtPay.setIddonvibh(iddonvi);
     String tgdong = (String)request.getParameter("realTime");
     String thangdong = (String)session.getAttribute("insuranceMonth");
-
+    RealTimePaymentDAO rtdao = new RealTimePaymentDAO();
+    boolean check = rtdao.CheckPayment(iddonvi, thangdong,loaibhid);
+   	if(!check){
+   		response.sendRedirect("searchBusiness.jsp?idalert=0");
+   	}
     
     RealTimePaymentDAO dao = new RealTimePaymentDAO();
     boolean kq;
@@ -40,13 +47,13 @@
 	        alert("Đăng kí thành công!");
 	    </script>
 		<%
-        response.sendRedirect("searchBusiness.jsp");
+        response.sendRedirect("searchBusiness.jsp?idalert=1");
     }else{
     	%>
 	    <script type="text/javascript">
 	        alert("Đã xảy ra lỗi lưu xác nhận, chưa xác nhận đóng tiền thành công!");
 	    </script> 
 	<%
-	response.sendRedirect("searchBusiness.jsp");
+	response.sendRedirect("searchBusiness.jsp?idalert=1");
     }
 %>

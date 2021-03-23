@@ -5,15 +5,11 @@
 --%>
 
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <jsp:useBean id="d" class="src.dao.CoquanbhDAO" scope="request"/>
-    <jsp:useBean id="t" class="src.dao.TinhDAO" scope="request"/>
-    <jsp:useBean id="q" class="src.dao.QuanDAO" scope="request"/>
-    <jsp:useBean id="p" class="src.dao.PhuongDAO" scope="request"/>
 	<title>Đăng ký BHXH</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +54,15 @@
 	
 		</div>
 	</nav>
+	<% CoquanbhDAO cdao = new CoquanbhDAO();
+	ArrayList<InsuranceCompany> ListCoQuan = cdao.getCoquanbh();
+	TinhDAO tdao = new TinhDAO();
+	ArrayList<Province> ListTinh = tdao.getTinh();
+	QuanDAO qdao = new QuanDAO();
+	ArrayList<District> ListQuan = qdao.getQuan();
+	PhuongDAO pdao = new PhuongDAO();
+	ArrayList<Ward> ListPhuong = pdao.getPhuong();	
+	%>
 
 	<main class="container">
 		<header class="row">
@@ -100,11 +105,10 @@
 					<div class="form-group form-inline">
 						<label for="tencqbh" class="col-3">Cơ quan bảo hiểm</label>
 					<select class="form-select col-6" name="tencqbh" style="margin-top: 20px;">
-                                            <c:forEach items= "${d.coquanbh}" var="o">
-                                                <option value="${o.id}">
-                                                        ${o.ten}
-                                                    </option>
-                                                           </c:forEach>
+                                             <% for(int i=0; i<ListCoQuan.size();i++){%>
+							                        <option value="<%=ListCoQuan.get(i).getId()%>"><%=ListCoQuan.get(i).getName() %></option>
+							                    <%}
+							                    %>
                                         </select> 
 						
 					</div>
@@ -126,28 +130,25 @@
 						<div class="col-6 form-inline">
                                                     <select class="form-select" name="tinh" style="width:290px;" >
                                                     <option selected>Tỉnh/TP</option>
-                                                    <c:forEach items= "${t.tinh}" var="z">
-                                                        <option value="${z.id}">
-                                                                ${z.ten}
-                                                            </option>
-                                                           </c:forEach>
+                                                    <% for(int i=0; i<ListTinh.size();i++){%>
+							                        <option value="<%=ListTinh.get(i).getId()%>"><%=ListTinh.get(i).getName() %></option>
+								                    <%}
+								                    %>
                                                   </select>
                                                     
                                                     <select class="form-select" name="quan" style="width:290px; margin-top: 5px;">
                                             <option selected>Quận</option>
-                                            <c:forEach items= "${q.quan}" var="n">
-                                                <option value="${n.id}">
-                                                        ${n.ten}
-                                                    </option>
-                                                           </c:forEach>
+	                                            <% for(int i=0; i<ListQuan.size();i++){%>
+							                        <option value="<%=ListQuan.get(i).getId()%>"><%=ListQuan.get(i).getName() %></option>
+								                    <%}
+								                    %>
                                         </select> 
                                                     <select class="form-select" name="phuong" style="width:290px; margin-top: 5px;">
                                             <option selected>Phường</option>
-                                            <c:forEach items= "${p.phuong}" var="c">
-                                                <option value="${c.id}">
-                                                        ${c.ten}
-                                                    </option>
-                                                           </c:forEach>
+                                            <% for(int i=0; i<ListPhuong.size();i++){%>
+							                        <option value="<%=ListPhuong.get(i).getId()%>"><%=ListPhuong.get(i).getName() %></option>
+								                    <%}
+								                    %>
                                         </select> 
                                         <input type="text" name="chitiet" id="chitiet" class="form-control col-6" required placeholder="Chi tiết địa chỉ">
                                                     
