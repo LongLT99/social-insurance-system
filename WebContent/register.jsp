@@ -43,7 +43,7 @@
 <body>
 		<nav class="navbar navbar-expand-sm navbar-light bg-primary sticky-top ">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html">
+			<a class="navbar-brand" href="webHome.jsp">
 				<img src="https://dichvucong.baohiemxahoi.gov.vn/assets/images/logo_text.svg">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" 

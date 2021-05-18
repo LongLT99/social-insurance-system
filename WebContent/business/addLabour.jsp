@@ -63,9 +63,7 @@
 			labour.setEthnic(request.getParameter("ethnic"));
 			labour.setBusinessUnit(busUnit);
 			labour.setIsUnion(request.getParameter("isCD") == "true" ? 1 : 0);
-			int result = dao.addLabour(labour, busUnit);
-			labour.setId(result);
-			boolean result1 = dao.addInsuranceParticipation(labour);
+			boolean result = dao.addLabour(labour, busUnit);
 		}
 		
 	%>
