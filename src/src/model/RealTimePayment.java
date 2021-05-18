@@ -26,6 +26,19 @@ public class RealTimePayment {
 		this.thoigiandong = thoigiandong;
 		this.handong = handong;
 	}
+	
+	public RealTimePayment( String phuongthuc,float sotien, String tennganhang, 
+			String magiaodich, String noidunggd,int nhanvienid, int loaibhid, int iddonvibh) {
+		super();
+		this.nhanvienid = nhanvienid;
+		this.loaibhid = loaibhid;
+		this.iddonvibh = iddonvibh;
+		this.sotien = sotien;
+		this.tennganhang = tennganhang;
+		this.magiaodich = magiaodich;
+		this.noidunggd = noidunggd;
+		this.phuongthuc = phuongthuc;
+	}
 	public int getId() {
 		return id;
 	}

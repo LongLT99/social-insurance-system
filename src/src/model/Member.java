@@ -9,6 +9,19 @@ public class Member {
 	private String phoneNumber;
 	private String role;
 	
+	
+	public Member() {
+		super();
+	}
+	public Member(int id, String username, String password, String email, String phoneNumber, String role) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.role = role;
+	}
 	public int getId() {
 		return id;
 	}

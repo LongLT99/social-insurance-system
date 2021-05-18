@@ -92,6 +92,7 @@ public class LabourDAO extends DAO {
 	 * @param labour: Người lao động cần thêm
 	 * @return
 	 */
+	
 	public boolean addLabour(Labour labour, BusinessUnit businessUnit) {
 		ArrayList<Integer> insuranceType = new ArrayList<Integer>();
 		insuranceType.add(1);
@@ -99,6 +100,9 @@ public class LabourDAO extends DAO {
 		insuranceType.add(3);
 		if(labour.getIsUnion() == 1) {
 			insuranceType.add(4);
+		}
+		if(labour == null || labour.getName() == null) {
+			return false;
 		}
 		String sql = "INSERT INTO Laodong(hoten, ngaysinh, gioitinh, quoctich, dantoc, maBHXH, sdt, soCMND, mahogiadinh, thamgiaCD, DonviBHid)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -147,7 +151,6 @@ public class LabourDAO extends DAO {
 		}
 		return true;
 	}
-	
 	/**
 	 * Tìm người lao động theo mã BHXH
 	 * @param insuranceCode: mã BHXH
@@ -207,6 +210,7 @@ public class LabourDAO extends DAO {
 				labour.setIsUnion(rs.getInt("thamgiaCD"));
 				labour.setPosition(rs.getString("chucdanh"));
 				labour.setDivision(rs.getString("phongban"));
+				labour.setBusinessUnit(businessUnit);
 				if(btgId == 0) {
 					labour.setIsWorking(0);
 				} else {
