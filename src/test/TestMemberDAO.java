@@ -51,14 +51,6 @@ class TestMemberDAO {
 		
 		
 	}
-	@Test
-	void testGetAllMember() {
-		MemberDAO md = new MemberDAO();
-		ArrayList<Member> listMem = md.getAllMember();
-		Assert.assertNotNull(listMem);
-		Assert.assertEquals(0, listMem.size());
-		return;
-	}
 
 	@Test
 	void testGetIdThanhVien() {

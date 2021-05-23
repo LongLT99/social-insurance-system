@@ -59,30 +59,7 @@ public class MemberDAO extends DAO {
         }
         return true;
     }
-	public ArrayList<Member> getAllMember(){
-        ArrayList<Member> result = new ArrayList<Member>();
-        String sql = "SELECT * FROM social_insurance.thanhvien";
-        try{
-            CallableStatement cs = conn.prepareCall(sql);
-            ResultSet rs = cs.executeQuery();
-             
-            while(rs.next()){
-//                if(kq == null) kq = new ArrayList<Member>();
-                Member m = new Member();
-                m.setId(rs.getInt("id"));
-                m.setUsername(rs.getString("username"));
-                m.setPassword(rs.getString("password"));
-                m.setEmail(rs.getString("email"));
-                m.setPhoneNumber(rs.getString("sdt"));
-                m.setRole(rs.getString("role"));    
-                result.add(m);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-//            kq = null;
-        }   
-        return result;
-    }
+
 	public int getIdThanhVien(String username , String password) {
 		String sql = "SELECT * FROM Thanhvien WHERE USERNAME = ? AND PASSWORD = ?";
 		int i=0;
