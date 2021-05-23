@@ -104,7 +104,7 @@
 					
 				<%
 					boolean check = rtdao.CheckPayment(idBU, request.getParameter("insuranceMonth"),InsuranceTypeList.get(i).getId());
-					if(!check){
+					if(check==true){
 					
 				%>
 					<th>Hoàn thành</th>

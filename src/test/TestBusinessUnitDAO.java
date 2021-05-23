@@ -29,24 +29,8 @@ class TestBusinessUnitDAO extends TestCase {
 		assertEquals(expected.getUnitCode(),b.getUnitCode());
 	}
 	
-	//test case 2: chọn đơn vị tham gia bảo hiểm bằng id, id có trong db 2
-	@Test
-	void testGetBusinessUnitbyId2(){
-		BusinessUnit b = new BusinessUnit();
-		BusinessUnitDAO busUnitDAO = new BusinessUnitDAO();
-		b= busUnitDAO.getBusinessUnitbyId(2);
-		BusinessUnit expected = new BusinessUnit();
-		expected.setId(2);
-		expected.setName("Công ty trách nhiệm hữu hạn B");
-		expected.setTaxCode("234523453452");
-		expected.setUnitCode("tnhhB");
-		assertEquals(expected.getId(),b.getId());
-		assertEquals(expected.getName(),b.getName());
-		assertEquals(expected.getTaxCode(),b.getTaxCode());
-		assertEquals(expected.getUnitCode(),b.getUnitCode());
-	}
 	
-	//test case 3: chọn đơn vị tham gia bảo hiểm bằng id, id không có trong db id 1
+	//test case 2: chọn đơn vị tham gia bảo hiểm bằng id, id không có trong db id 1
 	@Test
 	void testGetBusinessUnitbyId3(){
 		BusinessUnit b = new BusinessUnit();
@@ -57,7 +41,7 @@ class TestBusinessUnitDAO extends TestCase {
 		assertEquals(expected, b.getName());
 	}
 	
-	//test case 4: chọn đơn vị tham gia bảo hiểm bằng id, id không có trong db id 2 id âm
+	//test case 3: chọn đơn vị tham gia bảo hiểm bằng id, id không có trong db id 2 id âm
 	@Test
 	void testGetBusinessUnitbyId4(){
 		BusinessUnit b = new BusinessUnit();
@@ -68,7 +52,7 @@ class TestBusinessUnitDAO extends TestCase {
 		assertEquals(expected, b.getName());
 	}
 
-	//test case 5: tìm đơn vị tham gia bao hiểm, key đúng ngắn 1
+	//test case 4: tìm đơn vị tham gia bao hiểm, key đúng ngắn 1
 	@Test
 	void testSearchBusinessUnit1() {
 		BusinessUnitDAO busUnitDAO = new BusinessUnitDAO();
@@ -86,7 +70,7 @@ class TestBusinessUnitDAO extends TestCase {
 		assertEquals(expected.get(0).getTaxCode(), b.get(0).getTaxCode());
 	}
 	
-	//test case 6: tìm đơn vị tham gia bao hiểm, key sai 1
+	//test case 5: tìm đơn vị tham gia bao hiểm, key sai 1
 		@Test
 		void testSearchBusinessUnit2() {
 			BusinessUnitDAO busUnitDAO = new BusinessUnitDAO();

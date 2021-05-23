@@ -73,7 +73,7 @@ public class MemberDAO extends DAO {
                 m.setUsername(rs.getString("username"));
                 m.setPassword(rs.getString("password"));
                 m.setEmail(rs.getString("email"));
-                m.setPhoneNumber(rs.getString("phoneNumber"));
+                m.setPhoneNumber(rs.getString("sdt"));
                 m.setRole(rs.getString("role"));    
                 result.add(m);
             }
@@ -103,7 +103,7 @@ public class MemberDAO extends DAO {
 }
 	public Member getMemberByID(int key) {
 		Member member = null;
-		String sql = "SELECT * FROM social_insurance WHERE id=?";
+		String sql = "SELECT * FROM thanhvien WHERE id=?";
 		try {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setInt(1, key);

@@ -41,7 +41,7 @@
 		
 		RealTimePaymentDAO rtdao = new RealTimePaymentDAO();
 		boolean check = rtdao.CheckPayment(busUnit.getId(), request.getParameter("insuranceMonth"),idIT);
-		if(!check){
+		if(check == true){
 			response.sendRedirect("searchBusiness.jsp");
 		}
 		

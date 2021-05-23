@@ -33,7 +33,7 @@
     String thangdong = (String)session.getAttribute("insuranceMonth");
     RealTimePaymentDAO rtdao = new RealTimePaymentDAO();
     boolean check = rtdao.CheckPayment(iddonvi, thangdong,loaibhid);
-   	if(!check){
+   	if(check){
    		response.sendRedirect("searchBusiness.jsp?idalert=0");
    	}
     

@@ -54,14 +54,13 @@ public class RealTimePaymentDAO extends DAO{
     		ps.setInt(3, idit);
     		ResultSet rs = ps.executeQuery();
     		if(rs.next()) {
-    			return result;
+    			result= true; 
     		}
-    		result= true;    		
+    		   		
     	}catch(Exception e) {
     		e.printStackTrace();
     		return result;
     	}
-		System.out.println(result);
 		return result;
 	}
 	
