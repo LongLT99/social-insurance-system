@@ -73,7 +73,7 @@ public class MemberDAO extends DAO {
                 m.setUsername(rs.getString("username"));
                 m.setPassword(rs.getString("password"));
                 m.setEmail(rs.getString("email"));
-                m.setPhoneNumber(rs.getString("sdt"));
+                m.setPhoneNumber(rs.getString("phoneNumber"));
                 m.setRole(rs.getString("role"));    
                 result.add(m);
             }

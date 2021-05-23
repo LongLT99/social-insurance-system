@@ -4,7 +4,7 @@
  
 <%
 	request.setCharacterEncoding("UTF-8");
-	try{
+	
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String madonvi = request.getParameter("madonvi");
@@ -19,7 +19,10 @@
 		
 		
 		MemberDAO thanhvienDAO = new MemberDAO();
-		thanhvienDAO.luuthanhvien(username, password, email, sdt);
+		Member member = new Member(username,password,email,sdt);
+		
+		boolean res;
+		res = thanhvienDAO.luuthanhvien(member);
 		
 		int idthanhvien;
 		idthanhvien = thanhvienDAO.getIdThanhVien(username, password);
@@ -30,11 +33,22 @@
 		BusinessUnitDAO donvibhDAO = new BusinessUnitDAO();
 		donvibhDAO.luudonvibh(madonvi, ten, masothue, CoquanBHid, idthanhvien);
 		
-		
-		response.sendRedirect("login.jsp?idok=1");
-	}catch(Exception e){
+		if(res){
+			%>
+		    <script type="text/javascript">
+		        alert("Đăng kí thành công!");
+		    </script>
+			<%
+			response.sendRedirect("login.jsp?idok=1");
+		}else{
+			%>
+		    <script type="text/javascript">
+		        alert("Đã xảy ra lỗi!");
+		    </script> 
+		<%
 		response.sendRedirect("webHome.jsp");
-	}
+		}
+	
 	
    	
 %>

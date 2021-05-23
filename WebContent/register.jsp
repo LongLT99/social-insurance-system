@@ -43,7 +43,7 @@
 <body>
 		<nav class="navbar navbar-expand-sm navbar-light bg-primary sticky-top ">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="webHome.jsp">
+			<a class="navbar-brand" href="index.html">
 				<img src="https://dichvucong.baohiemxahoi.gov.vn/assets/images/logo_text.svg">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" 
@@ -79,31 +79,34 @@
 				<div class="col">
 					<form action="doRegister.jsp" method="post">
                                         <div class="form-group form-inline " >
-						<label for="username" class="col-3">Username</label>
+						<label for="username" class="col-3">Username
+						<span style="color:red">*</span>
+						</label>
+						
 						<input type="text" name="username" id="username" class="form-control col-6" required>
 					</div>
                                         <div class="form-group form-inline " >
-						<label for="password" class="col-3">Password</label>
+						<label for="password" class="col-3">Password<span style="color:red">*</span></label>
 						<input type="password" name="password" id="password" class="form-control col-6" minlength="8" maxlength="12" required >
 					</div>
                                         <div class="form-group form-inline " >
-						<label for="madonvi" class="col-3">Mã đơn vị</label>
+						<label for="madonvi" class="col-3">Mã đơn vị<span style="color:red">*</span></label>
 						<input type="text" name="madonvi" id="madonvi" class="form-control col-6" required>
 					</div>
                                             
                                             
 					<div class="form-group form-inline " >
-						<label for="ten" class="col-3">Tên cơ quan/Tổ chức</label>
+						<label for="ten" class="col-3">Tên cơ quan/Tổ chức<span style="color:red">*</span></label>
 						<input type="text" name="ten" id="ten" class="form-control col-6" required>
 					</div>		
 					
 						<div class="form-group form-inline">
-						<label for="masothue" class="col-3">Mã số thuế</label>
+						<label for="masothue" class="col-3">Mã số thuế<span style="color:red">*</span></label>
 						<input type="text" name="masothue" id="masothue" class="form-control col-6" required>
 					</div>
 						
 					<div class="form-group form-inline">
-						<label for="tencqbh" class="col-3">Cơ quan bảo hiểm</label>
+						<label for="tencqbh" class="col-3">Cơ quan bảo hiểm<span style="color:red">*</span></label>
 					<select class="form-control col-6" name="tencqbh" id ="tencqbh" style="margin-top: 20px;">
                                              <% for(int i=0; i<ListCoQuan.size();i++){%>
 							                        <option value="<%=ListCoQuan.get(i).getId()%>"><%=ListCoQuan.get(i).getName() %></option>
@@ -117,16 +120,16 @@
 			
 
 						<div class="form-group form-inline">
-						<label for="sdt" class="col-3">Số điện thoại</label>
+						<label for="sdt" class="col-3">Số điện thoại<span style="color:red">*</span></label>
 						<input type="text" name="sdt" id="sdt" class="form-control col-6" required>
 					</div>
 						
 						<div class="form-group form-inline">
-						<label for="email" class="col-3">Email</label>
+						<label for="email" class="col-3">Email<span style="color:red">*</span></label>
 						<input type="email" name="email" id="email" class="form-control col-6" required>
 					</div>
                                         <div class="form-group form-inline">
-						<label for="diachi" class="col-3">Địa chỉ</label>
+						<label for="diachi" class="col-3">Địa chỉ<span style="color:red">*</span></label>
 						<div class="col-6 form-inline">
                                                     <select class="form-control" name="tinh" id="tinh" style="width:290px;" >
                                                     <option selected>Tỉnh/TP</option>
@@ -162,7 +165,8 @@
 					</div>
 					<hr>
 					<div class="form-group">
-						<input type="submit" onclick="send()" class="btn btn-primary" value="Đăng ký" style="float: right; margin-right: 150px;" >
+						<a href="index.html" class="btn btn-secondary" style="margin-left:400px;">Quay lại</a>
+						<input type="submit" class="btn btn-primary" value="Đăng ký" style="float: right; margin-right: 150px;" >
 					
 					</div>
 				</form>
