@@ -75,6 +75,20 @@ public class LoginTest extends SeleniumTestDriver {
 		assertEquals(expectedUrl, targetUrl);
 	}
 
+	// Kiem tra dang nhap hop le
+	@Test
+	public void loginValidForAdminTest() {
+		WebElement username = driver.findElement(By.name("username"));
+		WebElement password = driver.findElement(By.name("password"));
+		WebElement loginBtn = driver.findElement(By.name("btnlogin"));
+		username.sendKeys("ema");
+		password.sendKeys("123456");
+		loginBtn.click();
+		String targetUrl = driver.getCurrentUrl();
+		String expectedUrl = "http://localhost:8080/social-insurance-system/employee/employeeHome.jsp";
+		assertEquals(expectedUrl, targetUrl);
+	}
+
 	// Kiem tra gioi han ten dang nhap
 	@Test
 	public void loginExceedUsernameLimitTest() {
