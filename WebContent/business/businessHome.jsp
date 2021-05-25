@@ -1,4 +1,5 @@
-<%@page import="src.model.Member"%>
+<%@page import="src.dao.BusinessUnitDAO"%>
+<%@page import="src.model.Member, src.dao.BusinessUnitDAO, src.model.BusinessUnit"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +23,10 @@
 		Member kh = (Member) session.getAttribute("business");
 	if (kh == null) {
 		response.sendRedirect("../login.jsp?err=timeout");
+	} else {
+		BusinessUnitDAO dao = new BusinessUnitDAO();
+		BusinessUnit unit = dao.getBusinessUnit(kh);
+		session.setAttribute("busUnit", unit);
 	}
 	%>
 
