@@ -41,7 +41,7 @@ public class InsuranceProcessTests extends DAO {
 		busUnit.setUsername("tnhhA");
 		Labour labour = new Labour();
 		labour.setId(1);
-		labour.setName("Nguy?n Ho?ng Kh?i");
+		labour.setName("Nguyễn Hoàng Khôi");
 		ArrayList<InsuranceProcess> processes = 
 				dao.getInsuranceProcesses(busUnit, labour);
 		String sql = "SELECT * FROM baotangggiam WHERE laodongid = ?";
