@@ -41,7 +41,7 @@ public class InsuranceProcessTests extends DAO {
 		busUnit.setUsername("tnhhA");
 		Labour labour = new Labour();
 		labour.setId(1);
-		labour.setName("Nguyễn Hoàng Khôi");
+		labour.setName("Nguy盻�n Hoﾃ�ng Khﾃｴi");
 		ArrayList<InsuranceProcess> processes = 
 				dao.getInsuranceProcesses(busUnit, labour);
 		String sql = "SELECT * FROM baotangggiam WHERE laodongid = ?";
@@ -95,7 +95,7 @@ public class InsuranceProcessTests extends DAO {
 		process.setProcessType(type);
 		boolean result = dao.addInsuranceProcess(process);
 		assertTrue(result);
-		String sql = "SELECT * FROM baotangggiam WHERE chucdanh = ? and phongban = ? and contract_code = ?";
+		String sql = "SELECT * FROM baotangggiam WHERE chucdanh = ? and phongban = ? and mahdld = ?";
 		try {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1, "test");
@@ -110,7 +110,7 @@ public class InsuranceProcessTests extends DAO {
 			e.printStackTrace();
 		}
 		assertTrue(result);
-		sql = "DELETE FROM baotangggiam WHERE chucdanh = ? and phongban = ? and contract_code = ?";
+		sql = "DELETE FROM baotangggiam WHERE chucdanh = ? and phongban = ? and mahdld = ?";
 		try {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
 			ps.setString(1, "test");

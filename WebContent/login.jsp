@@ -144,10 +144,10 @@ if (username != null || password != null) {
         <h1>Đăng nhập</h1>
         <form name="dangnhap" action="login.jsp" method="post">
             <p>Username</p>
-            <input type="text" name="username"  id="username">
+            <input type="text" name="username"  id="username" required>
             <p>Password</p>
-            <input type="password" name="password"  id="password">
-            <input type="submit" name="" value="Login">
+            <input type="password" name="password"  id="password" required>
+            <input type="submit" name="btnlogin" value="Login">
             <a href="#">Quên mật khẩu ?</a><br>
             <a href="register.jsp">Bạn chưa có tài khoản?</a>
         </form>
