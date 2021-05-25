@@ -46,6 +46,12 @@ public class BusinessTests extends SeleniumTestDriver {
 		assertTrue(driver.findElement(By.xpath("/html/body/nav/div/ul/li[1]/a")).isEnabled());
 	}
 	
+	@Test
+	public void testInfoLinkNavLink() {
+		login();
+		assertTrue(driver.findElement(By.xpath("/html/body/nav/div/ul/li[2]/a")).isEnabled());
+	}
+	
 	@After
 	public void closeDriver() {
 		driver.close();

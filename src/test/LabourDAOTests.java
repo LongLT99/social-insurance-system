@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import src.dao.DAO;
 import src.dao.LabourDAO;
@@ -162,7 +163,7 @@ public class LabourDAOTests extends DAO {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(expectedSql);
 			ps.setInt(1, actualLabour.getId());
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
+			if(rs.next()) {
 				actual = rs.getInt("count");
 			}
 			assertEquals(3, actual);

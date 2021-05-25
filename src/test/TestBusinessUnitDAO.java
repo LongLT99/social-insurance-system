@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import junit.framework.TestCase;
 
-class TestBusinessUnitDAO {
+class TestBusinessUnitDAO extends TestCase {
 
 	//test case 1: chọn đơn vị tham gia bảo hiểm bằng id, id có trong db 1
 	@Test
@@ -72,15 +72,14 @@ class TestBusinessUnitDAO {
 	}
 	
 	//test case 5: tìm đơn vị tham gia bao hiểm, key sai 1
-		@Test
-		void testSearchBusinessUnit2() {
-			BusinessUnitDAO busUnitDAO = new BusinessUnitDAO();
-			ArrayList <BusinessUnit> b = new ArrayList<>();
-			ArrayList <BusinessUnit> expected = new ArrayList<>();
-			b = busUnitDAO.searchBusinessUnit("fdasfds");
-			
-			assertEquals(expected, b);
-		}
-	
+	@Test
+	void testSearchBusinessUnit2() {
+		BusinessUnitDAO busUnitDAO = new BusinessUnitDAO();
+		ArrayList <BusinessUnit> b = new ArrayList<>();
+		ArrayList <BusinessUnit> expected = new ArrayList<>();
+		b = busUnitDAO.searchBusinessUnit("fdasfds");
+		
+		assertEquals(expected, b);
+	}
 
 }
