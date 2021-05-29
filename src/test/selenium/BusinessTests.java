@@ -44,7 +44,6 @@ public class BusinessTests extends SeleniumTestDriver {
 	@Test
 	public void testBussinessHomeTitle() {
 		login();
-		String targetUrl = driver.getCurrentUrl();
 		String title = driver.getTitle();
 		String expectedTitle = "Hệ thống hỗ trợ tính phí bảo hiểm xã hội";
 		assertEquals(expectedTitle, title);
@@ -55,6 +54,7 @@ public class BusinessTests extends SeleniumTestDriver {
 		login();
 		WebElement stayHome = driver.findElement(By.xpath("/html/body/nav/div/ul/li[1]/a"));
 		assertTrue(stayHome.isEnabled());
+		assertEquals("http://localhost:8080/social-insurance-system/businessHome.jsp", stayHome.getAttribute("href"));
 
 	}
 
@@ -63,6 +63,7 @@ public class BusinessTests extends SeleniumTestDriver {
 		login();
 		WebElement goToLabourInfo = driver.findElement(By.xpath("/html/body/nav/div/ul/li[2]/a"));
 		assertTrue(goToLabourInfo.isEnabled());
+		assertEquals("http://localhost:8080/social-insurance-system/business/labourInfo.jsp", goToLabourInfo.getAttribute("href"));
 	}
 
 	@Test
@@ -70,6 +71,7 @@ public class BusinessTests extends SeleniumTestDriver {
 		login();
 		WebElement goToInsuranceInfo = driver.findElement(By.xpath("/html/body/nav/div/ul/li[3]/a"));
 		assertTrue(goToInsuranceInfo.isEnabled());
+		assertEquals("http://localhost:8080/social-insurance-system/business/insuranceInfo.jsp", goToInsuranceInfo.getAttribute("href"));
 	}
 
 	// Test khong nhap ten
@@ -86,6 +88,7 @@ public class BusinessTests extends SeleniumTestDriver {
 		WebElement ethnic = driver.findElement(By.name("ethnic"));
 		WebElement isCD = driver.findElement(By.name("isCD"));
 		WebElement btnAdd = driver.findElement(By.name("btnAdd"));
+		name.sendKeys("");
 		idNumber.sendKeys("023901428908");
 		insCode.sendKeys("24902319450");
 		dob.sendKeys("1997-10-23");

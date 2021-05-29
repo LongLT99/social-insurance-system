@@ -167,9 +167,8 @@ public class LabourDAO extends DAO {
 				labour.setId(rs.getInt("id"));
 				labour.setName(rs.getString("hoten"));
 				labour.setDateOfBirth(rs.getDate("ngaysinh"));
-				labour.setInsuranceCode(rs.getString("insuranceCode"));
+				labour.setInsuranceCode(rs.getString("maBHXH"));
 				labour.setFamilyCode(rs.getString("mahogiadinh"));
-				labour.setEmail(rs.getString("email"));
 				labour.setGender(rs.getInt("gioitinh"));
 				labour.setNationality(rs.getString("quoctich"));
 				labour.setEthnic(rs.getString("dantoc"));

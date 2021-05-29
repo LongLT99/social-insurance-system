@@ -44,7 +44,7 @@ public class SignUpTests extends SeleniumTestDriver {
 	@Test
 	public void signupTitleTest() {
 		String title = driver.getTitle();
-		String expectedTitle = "ﾄ斉ハg kﾃｽ BHXH";
+		String expectedTitle = "Đăng ký BHXH";
 		assertEquals(expectedTitle, title);
 	}
 
