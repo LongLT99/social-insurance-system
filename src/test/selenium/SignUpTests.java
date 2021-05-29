@@ -543,7 +543,7 @@ public class SignUpTests extends SeleniumTestDriver {
 
 	// Test dang ky hop le
 	@Test
-	public void signUpValiddTest() throws InterruptedException {
+	public void signUpValidTest() throws InterruptedException {
 		WebElement username = driver.findElement(By.name("username"));
 		WebElement password = driver.findElement(By.name("password"));
 		WebElement madonvi = driver.findElement(By.name("madonvi"));
