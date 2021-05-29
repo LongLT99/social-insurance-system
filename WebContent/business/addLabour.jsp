@@ -132,7 +132,7 @@
 		    <input type="checkbox" name="isCD" value="1">
 		  </div>
 	  </div>
-	  <button type="submit" class="btn btn-primary">Thêm lao động</button>
+	  <button type="submit" name="btnAdd" class="btn btn-primary">Thêm lao động</button>
 	</form>
 	<%
 	} else {

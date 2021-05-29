@@ -166,7 +166,7 @@
 					<hr>
 					<div class="form-group">
 						<a href="index.html" class="btn btn-secondary" style="margin-left:400px;">Quay lại</a>
-						<input type="submit" class="btn btn-primary" value="Đăng ký" style="float: right; margin-right: 150px;" >
+						<input type="submit" name="btnSignup" class="btn btn-primary" value="Đăng ký" style="float: right; margin-right: 150px;" >
 					
 					</div>
 				</form>

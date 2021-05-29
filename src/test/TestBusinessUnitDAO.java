@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import junit.framework.TestCase;
 
-class TestBusinessUnitDAO {
+class TestBusinessUnitDAO extends TestCase {
 
 	//test case 1: chọn đơn vị tham gia bảo hiểm bằng id, id có trong db 1
 	@Test

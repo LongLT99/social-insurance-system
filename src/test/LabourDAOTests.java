@@ -2,19 +2,19 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.HashMap;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import src.dao.DAO;
 import src.dao.LabourDAO;
@@ -22,12 +22,6 @@ import src.model.BusinessUnit;
 import src.model.Labour;
 import src.model.LabourInsuranceInfo;
 
-/**
- * Test Class LabourDAO
- * 
- * @author Khoinh
- *
- */
 public class LabourDAOTests extends DAO {
 
 	static LabourDAO labourDao;
@@ -162,7 +156,7 @@ public class LabourDAOTests extends DAO {
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(expectedSql);
 			ps.setInt(1, actualLabour.getId());
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
+			if(rs.next()) {
 				actual = rs.getInt("count");
 			}
 			assertEquals(3, actual);
@@ -178,22 +172,15 @@ public class LabourDAOTests extends DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
-
-	@Test
-	public void testInalidAddLabour() {
-		assertThrows(NullPointerException.class, () -> {
-			labourDao.addLabour(null, null);
-		});
-	}
-
+	
 	@Test
 	public void testInvalidGetLaboursOfBusiness() {
 		ArrayList<Labour> labours = labourDao.getLaboursOfBusinessUnit(new BusinessUnit());
 		assertEquals(0, labours.size());
 	}
-
+	
 	@Test
 	public void testValidGetLaboursOfBusiness() {
 		BusinessUnit unit = new BusinessUnit();
@@ -201,8 +188,8 @@ public class LabourDAOTests extends DAO {
 		unit.setName("tnhhA");
 		ArrayList<Labour> labours = labourDao.getLaboursOfBusinessUnit(unit);
 		boolean result = true;
-		for (Labour labour : labours) {
-			if (labour.getBusinessUnit().getId() != unit.getId()) {
+		for(Labour labour : labours) {
+			if(labour.getBusinessUnit().getId() != unit.getId()) {
 				result = false;
 			}
 		}
