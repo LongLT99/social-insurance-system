@@ -441,4 +441,135 @@ public class BusinessInsuranceInfoDAOTests extends DAO {
 		}
 		assertEquals(info.getEmployeeUnemployedInsurance(),result*unemploymentInsurance, 0.001);
 	}
+	
+	/**
+	 * Test dong cong doan phi cua doanh nghiep
+	 */
+	@Test
+	public void testBusinessUnionFee() {
+		BusinessUnit unit = new BusinessUnit();
+		unit.setId(1);
+		String insuranceMonth = "2021-03";
+		BusinessInsuranceInfo info = infoDao.getInsuranceInfo(unit, insuranceMonth);
+		
+		String sql = "SELECT\r\n" + 
+				"	SUM(CASE WHEN lbh.id = 4 THEN bt.luongBH END) AS bhxh_doanh_nghiep_dong\r\n" + 
+				"FROM laodong ld\r\n" + 
+				"INNER JOIN baotangggiam bt ON bt.laodongid = ld.id AND bt.thogianbatdau IN (SELECT MIN(bt.thogianbatdau) FROM baotangggiam bt WHERE IFNULL(bt.thoigianketthuc, DATE(CONCAT(?, '-01'))) >= DATE(CONCAT(?, '-01')))\r\n" + 
+				"INNER JOIN loaitanggiam ltg ON ltg.id = bt.Loaitangid\r\n" + 
+				"INNER JOIN (SELECT bt.*, ld.maBHXH, ld.DonviBHId FROM baotangggiam bt INNER JOIN laodong ld ON ld.id = bt.laodongid) bt_yt ON bt_yt.maBHXH = ld.maBHXH \r\n" + 
+				"	AND bt_yt.luongBH IN (SELECT MAX(bt_yt1.luongBH) FROM baotangggiam bt_yt1 WHERE DATE(CONCAT(?, '-01')) BETWEEN bt_yt1.thogianbatdau AND IFNULL(bt_yt1.thoigianketthuc, DATE(CONCAT(?, '-01'))) AND bt_yt1.laodongid = ld.id)\r\n" + 
+				"INNER JOIN donvibh dvbh ON dvbh.id = ld.donvibhid\r\n" + 
+				"INNER JOIN nguoidongbhxh ndbh ON ndbh.Laodongid = ld.id\r\n" + 
+				"INNER JOIN loaibaohiem lbh ON lbh.id = ndbh.Loaibaohiemid\r\n" + 
+				"INNER JOIN phantrambh ptbh ON ptbh.Loaibaohiemid = lbh.id\r\n" + 
+				"INNER JOIN coquanbh cqbh ON cqbh.id = dvbh.CoquanBHid\r\n" + 
+				"INNER JOIN quan q ON q.id = cqbh.Quanid\r\n" + 
+				"INNER JOIN khuvuc kv ON kv.id = q.Khuvucid\r\n" + 
+				"INNER JOIN luongminmax ltd ON ltd.LoaibaohiemId = lbh.id AND ltd.Khuvucid = kv.id\r\n" + 
+				"WHERE ltg.loai = 1\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN bt_yt.thogianbatdau AND IFNULL(bt_yt.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN bt.thogianbatdau AND IFNULL(bt.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND DATEDIFF(IFNULL(bt.thoigianketthuc, LAST_DAY(DATE(CONCAT(?, '-01')))), DATE(CONCAT(?, '-01'))) >= IFNULL(ltg.songaytoidanghi, 0)\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN ltd.thoigianbatdau AND IFNULL(ltd.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND bt.luongBH <= ltd.luongtoida\r\n" + 
+				"AND bt.luongBH >= ltd.luongmin\r\n" + 
+				"AND dvbh.id = ?\r\n" + 
+				"GROUP BY dvbh.id";
+		
+		PreparedStatement ps;
+		Float result = 0.0F;
+		Float unionFee = 0.0F;
+		try {
+			ps = (PreparedStatement) conn.prepareStatement(sql);
+			for(int i = 1; i <= 12; i++) {
+				ps.setString(i, insuranceMonth);
+			}
+			ps.setInt(13, unit.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				result = rs.getFloat("bhxh_doanh_nghiep_dong");
+			}
+			sql = "SELECT * FROM LOAIBAOHIEM lbh\r\n" + 
+					"INNER JOIN phantrambh pt ON pt.Loaibaohiemid = lbh.id\r\n" + 
+					"WHERE DATE(CONCAT(?,'-01')) AND pt.thoigianbatdau AND IFNULL(pt.thoigianketthuc, DATE(CONCAT(?,'-01')))\r\n" + 
+					"AND lbh.id = 4";
+			ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setString(1, insuranceMonth);
+			ps.setString(2, insuranceMonth);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				unionFee = rs.getFloat("tyledndong");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		assertEquals(info.getBusinessUnionFee(),result*unionFee, 0.001);
+	}
+	
+	/**
+	 * Test dong cong doan phi trich luong nguoi lao dong
+	 */
+	@Test
+	public void testLabourUnionFee() {
+		BusinessUnit unit = new BusinessUnit();
+		unit.setId(1);
+		String insuranceMonth = "2021-03";
+		BusinessInsuranceInfo info = infoDao.getInsuranceInfo(unit, insuranceMonth);
+		
+		String sql = "SELECT\r\n" + 
+				"	SUM(CASE WHEN lbh.id = 4 THEN bt.luongBH END) AS bhxh_doanh_nghiep_dong\r\n" + 
+				"FROM laodong ld\r\n" + 
+				"INNER JOIN baotangggiam bt ON bt.laodongid = ld.id AND bt.thogianbatdau IN (SELECT MIN(bt.thogianbatdau) FROM baotangggiam bt WHERE IFNULL(bt.thoigianketthuc, DATE(CONCAT(?, '-01'))) >= DATE(CONCAT(?, '-01')))\r\n" + 
+				"INNER JOIN loaitanggiam ltg ON ltg.id = bt.Loaitangid\r\n" + 
+				"INNER JOIN (SELECT bt.*, ld.maBHXH, ld.DonviBHId FROM baotangggiam bt INNER JOIN laodong ld ON ld.id = bt.laodongid) bt_yt ON bt_yt.maBHXH = ld.maBHXH \r\n" + 
+				"	AND bt_yt.luongBH IN (SELECT MAX(bt_yt1.luongBH) FROM baotangggiam bt_yt1 WHERE DATE(CONCAT(?, '-01')) BETWEEN bt_yt1.thogianbatdau AND IFNULL(bt_yt1.thoigianketthuc, DATE(CONCAT(?, '-01'))) AND bt_yt1.laodongid = ld.id)\r\n" + 
+				"INNER JOIN donvibh dvbh ON dvbh.id = ld.donvibhid\r\n" + 
+				"INNER JOIN nguoidongbhxh ndbh ON ndbh.Laodongid = ld.id\r\n" + 
+				"INNER JOIN loaibaohiem lbh ON lbh.id = ndbh.Loaibaohiemid\r\n" + 
+				"INNER JOIN phantrambh ptbh ON ptbh.Loaibaohiemid = lbh.id\r\n" + 
+				"INNER JOIN coquanbh cqbh ON cqbh.id = dvbh.CoquanBHid\r\n" + 
+				"INNER JOIN quan q ON q.id = cqbh.Quanid\r\n" + 
+				"INNER JOIN khuvuc kv ON kv.id = q.Khuvucid\r\n" + 
+				"INNER JOIN luongminmax ltd ON ltd.LoaibaohiemId = lbh.id AND ltd.Khuvucid = kv.id\r\n" + 
+				"WHERE ltg.loai = 1\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN bt_yt.thogianbatdau AND IFNULL(bt_yt.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN bt.thogianbatdau AND IFNULL(bt.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND DATEDIFF(IFNULL(bt.thoigianketthuc, LAST_DAY(DATE(CONCAT(?, '-01')))), DATE(CONCAT(?, '-01'))) >= IFNULL(ltg.songaytoidanghi, 0)\r\n" + 
+				"AND DATE(CONCAT(?, '-01')) BETWEEN ltd.thoigianbatdau AND IFNULL(ltd.thoigianketthuc, DATE(CONCAT(?, '-01')))\r\n" + 
+				"AND bt.luongBH <= ltd.luongtoida\r\n" + 
+				"AND bt.luongBH >= ltd.luongmin\r\n" + 
+				"AND dvbh.id = ?\r\n" + 
+				"GROUP BY dvbh.id";
+		
+		PreparedStatement ps;
+		Float result = 0.0F;
+		Float unionFee = 0.0F;
+		try {
+			ps = (PreparedStatement) conn.prepareStatement(sql);
+			for(int i = 1; i <= 12; i++) {
+				ps.setString(i, insuranceMonth);
+			}
+			ps.setInt(13, unit.getId());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				result = rs.getFloat("bhxh_doanh_nghiep_dong");
+			}
+			sql = "SELECT * FROM LOAIBAOHIEM lbh\r\n" + 
+					"INNER JOIN phantrambh pt ON pt.Loaibaohiemid = lbh.id\r\n" + 
+					"WHERE DATE(CONCAT(?,'-01')) AND pt.thoigianbatdau AND IFNULL(pt.thoigianketthuc, DATE(CONCAT(?,'-01')))\r\n" + 
+					"AND lbh.id = 4";
+			ps = (PreparedStatement) conn.prepareStatement(sql);
+			ps.setString(1, insuranceMonth);
+			ps.setString(2, insuranceMonth);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				unionFee = rs.getFloat("tylenlddong");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		assertEquals(info.getEmployeeUnionFee(),result*unionFee, 0.001);
+	}
+	
 }
