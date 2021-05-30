@@ -68,6 +68,7 @@ public class SignUpTests extends SeleniumTestDriver {
 		username.sendKeys("tnhhB");
 		password.sendKeys("1hjdajhdf");
 		madonvi.sendKeys("tnhhC");
+		ten.sendKeys("");
 		masothue.sendKeys("038954923");
 		tencqbh.sendKeys("Cong ty TNHH ABCD");
 		sdt.sendKeys("0924823948");
@@ -595,6 +596,74 @@ public class SignUpTests extends SeleniumTestDriver {
 				ps = (PreparedStatement) conn.prepareStatement(sql);
 				ps.executeUpdate();
 				sql = "DELETE FROM thanhvien WHERE " + "username = 'nhkhoi' AND password = '12345678'";
+				ps = (PreparedStatement) conn.prepareStatement(sql);
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	// Test dang ky ten dang nhap da ton tai
+	@Test
+	public void signupExistedUsername() throws InterruptedException {
+		WebElement username = driver.findElement(By.name("username"));
+		WebElement password = driver.findElement(By.name("password"));
+		WebElement madonvi = driver.findElement(By.name("madonvi"));
+		WebElement ten = driver.findElement(By.name("ten"));
+		WebElement masothue = driver.findElement(By.name("masothue"));
+		Select tencqbh = new Select(driver.findElement(By.name("tencqbh")));
+		WebElement sdt = driver.findElement(By.name("sdt"));
+		WebElement email = driver.findElement(By.name("email"));
+		Select tinh = new Select(driver.findElement(By.name("tinh")));
+		Select quan = new Select(driver.findElement(By.name("quan")));
+		Select phuong = new Select(driver.findElement(By.name("phuong")));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		username.sendKeys("tnhhA");
+		password.sendKeys("12345678");
+		madonvi.sendKeys("1hjdajhdf");
+		ten.sendKeys("tnhhC");
+		masothue.sendKeys("038954923");
+		tencqbh.selectByVisibleText("Cơ quan BHXH Quận Ba Đình");
+		sdt.sendKeys("0924823948");
+		email.sendKeys("tnhhB@gmail.com");
+		tinh.selectByVisibleText("Thành phố Hà Nội");
+		WebElement quand = driver
+				.findElementByXPath("/html/body/section/div[1]/div/div/form/div[9]/div/select[2]/option[6]");
+		js.executeScript("$('#tinh').trigger('change')");
+		quand.click();
+		WebElement phuongd = driver
+				.findElementByXPath("/html/body/section/div[1]/div/div/form/div[9]/div/select[3]/option[2]");
+		phuongd.click();
+		WebElement chitiet = driver.findElementByXPath("/html/body/section/div[1]/div/div/form/div[9]/div/input[3]");
+		WebElement signupBtn = driver.findElementByXPath("/html/body/section/div[1]/div/div/form/div[10]/input");
+		chitiet.sendKeys("abc");
+		signupBtn.submit();
+		String targetUrl = driver.getCurrentUrl();
+		String expectedUrl = "http://localhost:8080/social-insurance-system/login.jsp?idok=1";
+		assertEquals(expectedUrl, targetUrl);
+
+		try {
+			String sql = "SELECT * FROM thanhvien WHERE " + "username = 'tnhhA' AND password = '12345678'";
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			int count = 0;
+			while(rs.next()) {
+				count++;
+			}
+			assertEquals(1, count);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			PreparedStatement ps;
+			String sql = "DELETE FROM DONVIBH WHERE " + "MADONVI = '1hjdajhdf'";
+			try {
+				ps = (PreparedStatement) conn.prepareStatement(sql);
+				ps.executeUpdate();
+				sql = "DELETE FROM thanhvien WHERE " + "username = 'tnhhA' AND password = '12345678'";
 				ps = (PreparedStatement) conn.prepareStatement(sql);
 				ps.executeUpdate();
 			} catch (SQLException e) {
