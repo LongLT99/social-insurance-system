@@ -45,7 +45,9 @@
 	  <div class="form-group col-md-2"">	    
 	    <input type="text" class="form-control" name="busName" placeholder="Nhập tên doanh nghiệp">
 	  </div>
-	  <button type="submit" class="btn btn-secondary">Tìm kiếm</button>
+	  <div class="form-group col-md-2"">	    
+	    <button type="submit" name="btnsearch" class="btn btn-secondary">Tìm kiếm</button>
+	  </div>
 	</form>
 		<table class="table">
 			<thead>

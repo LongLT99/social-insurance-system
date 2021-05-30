@@ -95,7 +95,7 @@
 	      <input type="text" class="form-control" placeholder="Phương thức giao dịch..." name="inputPayment" required>
 	    </div>
 	  </div>
-	  <button type="submit" class="btn btn-primary">Xác nhận</button>
+	   	<input type="submit" name="btncomfirm" value="Xác nhận" class="btn btn-primary">
 	</form>
 		<table class="table">
 			<thead class="thead-light">
