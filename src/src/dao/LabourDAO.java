@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
@@ -221,6 +222,15 @@ public class LabourDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		labours.sort(new Comparator<Labour>() {
+
+			@Override
+			public int compare(Labour o1, Labour o2) {
+				// TODO Auto-generated method stub
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
 		return labours;
 	}
 }

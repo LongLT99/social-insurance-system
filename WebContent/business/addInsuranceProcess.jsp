@@ -3,45 +3,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
-<!DOCTYPE html>
+<%@include file ="../header.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Hệ thống hỗ trợ tính phí bảo hiểm xã hội</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>Confirm Payment page</title>
+<link rel="stylesheet" href="../static/css/font-awesome.min.css">
+<!-- Sandstone Bootstrap CSS -->
+<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+<!-- Bootstrap Datatables -->
+<link rel="stylesheet" href="../static/css/bootstrap-social.css">
+<!-- Bootstrap select -->
+<link rel="stylesheet" href="../static/css/bootstrap-select.css">
+<link rel="stylesheet" href="../static/css/style.css">
+<link rel="stylesheet" href="../static/css/style.less">
 <link rel="stylesheet"
-	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-	crossorigin="anonymous" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-	<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
 
-	<nav class="navbar navbar-expand-lg navbar-primary bg-primary sticky-top">
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="businessHome.jsp">Trang chủ <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="labourInfo.jsp">Khai báo thông tin</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="insuranceInfo.jsp">Xem thông tin bảo hiểm</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-	
-	<div class="row">
-	<div class="container">
+
+
+<body>
 	<%
 		request.setCharacterEncoding("UTF-8");
 		if (session.getAttribute("business") != null) {
@@ -75,8 +60,12 @@
 			
 			if(latestProcess.getEndTime() != null &&
 					startDate.compareTo(latestProcess.getEndTime()) < 0 ) {
-				needUpdate = true;
-				session.setAttribute("latestProcess", latestProcess);
+					needUpdate = true;
+					%>
+					<script type="text/javascript">
+						alert("Không thể thêm quá trình mới do thời gian bắt đầu nhỏ hơn thời gian kết thúc của quá trình trước");
+					</script>
+					<%
 			} else {
 				insuranceProcess.setInsuranceSalary(Float.parseFloat(request.getParameter("salary")));
 				insuranceProcess.setDivision(request.getParameter("division"));
@@ -159,23 +148,11 @@
 		    </select>
 		  </div>
 	  </div>
-	  <button onclick="needUpdate()" type="<%=needUpdate ? "" : "submit"%>" class="btn btn-primary">Xác nhận</button>
+	  <button type="<%=needUpdate ? "" : "submit"%>" name="btnSubmit" class="btn btn-primary">Xác nhận</button>
 	</form>
 		</div>
-
-<script type="text/javascript">
-	function needUpdate() {
-		var noti = "Thời gian bắt đầu của quá trình mới nhỏ hơn thời gian kết thúc của quá trình cũ. " +
-		"Đi đến điều chỉnh thời gian của quá trình cũ?";
-		var id = <%=needUpdate%>;
-		if(id) {
-			if(confirm(noti)) {
-				window.location.replace("editInsuranceProcess.jsp?id="+id);
-			}
-		}
-	}
-</script>
-
+</body>
+</html>
 
 	<%
 	
@@ -184,29 +161,6 @@
 	}
 	%>
 
-</div>
-</div>
-</body>
-</html>
 
-<style type="text/css">
-.navbar li a {
-	color: #FFF !important;
-}
-
-.navbar li a:hover {
-	color: #000 !important;
-}
-
-#images1 {
-	max-width: 100px;
-}
-
-.navbar .nav-item {
-	margin-right: 30px;
-	justify-content: center;
-}
-
-</style>
 
 

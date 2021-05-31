@@ -59,7 +59,10 @@
 	  <div class="form-group col-md-2"">	    
 	    <input type="month" name="insuranceMonth" value="<%=request.getParameter("insuranceMonth")%>">
 	  </div>
-	  <input type="submit" value="Xem phí BHXH" class="btn btn-secondary">
+	  <div class="form-group col-md-1"">	    
+	    <input type="submit" name="btngetinfo" value="Xem phí BHXH" class="btn btn-secondary">
+	  </div>
+	  
 	</form>
 		<table class="table">
 			<thead class="thead-light">
