@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -52,6 +53,17 @@ public class InsuranceProcessDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		insuranceProcesses.sort(new Comparator<InsuranceProcess>() {
+
+			@Override
+			public int compare(InsuranceProcess o1, InsuranceProcess o2) {
+				// TODO Auto-generated method stub
+				return o1.getStartTime().compareTo(o2.getStartTime());
+			}
+			
+		});
+		
 		return insuranceProcesses;
 	}
 
@@ -84,6 +96,11 @@ public class InsuranceProcessDAO extends DAO {
 		return true;
 	}
 
+	/**
+	 * Lay qua trinh bao hiem xa hoi gan nhat
+	 * @param labour
+	 * @return
+	 */
 	public InsuranceProcess getLatestProcess(Labour labour) {
 		InsuranceProcess insuranceProcess = new InsuranceProcess();
 		String sql = "SELECT btg.*, ltg.tenloaitang as name, ltg.id as ltg_id FROM baotangggiam btg "
@@ -116,6 +133,11 @@ public class InsuranceProcessDAO extends DAO {
 		return insuranceProcess;
 	}
 	
+	/**
+	 * Cap nhat qua trinh bao hiem xa hoi
+	 * @param insuranceProcess
+	 * @return
+	 */
 	public boolean updateProcess(InsuranceProcess insuranceProcess) {
 		String sql = "UPDATE baotangggiam SET mahdld = ?, "
 				+ "thogianbatdau = ?, thoigianketthuc = ?, luongBH = ?, "

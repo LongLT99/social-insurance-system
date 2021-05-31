@@ -87,7 +87,7 @@ import="src.model.*,src.dao.*,java.util.*,java.text.*"%>
 		<div class="col-3">
 		</div>
 	</div>
-		<input type="submit" value="Xem phí BHXH">
+		<input type="submit" name="btnSubmit" value="Xem phí BHXH">
 	</form>
 	
 	<hr>

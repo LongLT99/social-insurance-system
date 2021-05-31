@@ -13,6 +13,7 @@ import java.util.HashMap;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
@@ -137,7 +138,6 @@ public class LabourDAOTests extends DAO {
 
 	@Test
 	public void testValidAddLabour() {
-		int actual = 0;
 		Labour labour = new Labour();
 		labour.setId(0);
 		labour.setAddress("123");
@@ -147,27 +147,32 @@ public class LabourDAOTests extends DAO {
 		labour.setInsuranceCode("test123");
 		BusinessUnit busUnit = new BusinessUnit();
 		busUnit.setId(1);
-		labourDao.addLabour(labour, busUnit);
-
-		Labour actualLabour = labourDao.getLabourByInsuranceCode("test123");
-		assertEquals("abc", actualLabour.getName());
-		String expectedSql = "SELECT count(*) as count FROM nguoidongbhxh WHERE LAODONGID = ?";
+		Labour actualLabour = new Labour();
 		try {
-			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(expectedSql);
-			ps.setInt(1, actualLabour.getId());
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				actual = rs.getInt("count");
+			conn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+			conn.setAutoCommit(false);
+			labourDao.addLabour(labour, busUnit);
+			actualLabour = labourDao.getLabourByInsuranceCode("test123");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			try {
+				conn.rollback();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			assertEquals(3, actual);
-			String sql = "DELETE FROM nguoidongbhxh WHERE laodongid = ?";
-			ps = (PreparedStatement) conn.prepareStatement(sql);
+		}
+		assertEquals("abc", actualLabour.getName());
+		assertEquals("test123", actualLabour.getInsuranceCode());
+		String sql = "DELETE FROM laodong WHERE id = ?";
+		try {
+			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(sql);
+			System.out.println(actualLabour.getId());
 			ps.setInt(1, actualLabour.getId());
 			ps.executeUpdate();
-			sql = "DELETE FROM laodong WHERE id = ?";
-			ps = (PreparedStatement) conn.prepareStatement(sql);
-			ps.setInt(1, actualLabour.getId());
-			ps.executeUpdate();
+			conn.commit();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
